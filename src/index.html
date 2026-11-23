@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'">
+<title>Sarex Studio Launcher</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="home">
+<canvas id="fx" aria-hidden="true"></canvas>
+<header class="titlebar">
+  <div class="tb-c">Sarex Studio Launcher</div>
+  <div class="wc"><button data-w="min" aria-label="Minimizar">&#8211;</button><button data-w="close" aria-label="Cerrar">&#215;</button></div>
+</header>
+<i class="corner" aria-hidden="true"></i>
+
+<div class="shell">
+  <nav class="rail" aria-label="Instancias">
+    <button class="rb hm active" id="homeBtn" aria-label="Inicio"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></button>
+    <div class="insts" id="instRail"></div>
+    <span class="grow"></span>
+    <button class="rb add" id="addBtn" aria-label="Añadir instancia"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+    <button class="rb me" id="meBtn" aria-label="Perfil y menú"><canvas id="meFace" width="8" height="8"></canvas></button>
+  </nav>
+  <div class="menu" id="meMenu" hidden>
+    <div class="mhead"><span class="pn" id="menuName">Sin sesión</span><em id="menuBadge"></em></div>
+    <button data-go="skins"><svg viewBox="0 0 24 24"><path d="M16 3l5 3-2 4-3-1v12H8V9l-3 1-2-4 5-3a4 4 0 0 0 8 0z"/></svg>Skins</button>
+    <button data-go="shots"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Capturas</button>
+    <button data-go="news"><svg viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 6 2 7 2 7H4s2-1 2-7z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>Novedades</button>
+    <button data-go="mods"><svg viewBox="0 0 24 24"><path d="M12 2l9 5v10l-9 5-9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>Mods</button>
+    <button data-go="security"><svg viewBox="0 0 24 24"><path d="M12 2l8 3v6c0 5-3.4 9.3-8 11-4.6-1.7-8-6-8-11V5z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>Seguridad</button>
+    <button data-go="settings"><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>Ajustes</button>
+  </div>
+
+  <div class="content">
+    <div class="updbars">
+      <div class="updbar" id="packBar" hidden><span id="packTxt"></span><button class="btn primary" id="packBtn">Actualizar mods</button></div>
+      <div class="updbar" id="appBar" hidden><span id="appTxt"></span><button class="btn primary" id="appBtn">Reiniciar y actualizar</button></div>
+    </div>
+    <div class="top">
+      <h1 id="title">Inicio</h1>
+      <button class="player" id="player" aria-label="Cuenta"><canvas id="pface" width="8" height="8"></canvas><span id="pname" class="pn">Sin sesión</span><em id="pbadge"></em></button>
+    </div>
+
+    <section class="view active" id="v-home">
+      <div class="studio">
+        <div class="glow" aria-hidden="true"></div>
+        <img class="slogo" src="studio-logo.png" alt="Sarex Studio">
+        <div class="ticker" id="ticker" hidden><i></i><span id="tkText"></span></div>
+        <p class="hint" id="homeHint"></p>
+        <button class="play wide" id="homePlay"><span id="homePlayLbl">JUGAR</span></button>
+        <div class="quick">
+          <button class="qk" id="qDiscord" hidden><svg viewBox="0 0 24 24"><path d="M5 5h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-7l-4 3v-3H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>Discord</button>
+          <button class="qk" data-go="news"><svg viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 6 2 7 2 7H4s2-1 2-7z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>Novedades</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="v-inst">
+      <div class="hero2" id="hero">
+        <div class="halo" aria-hidden="true"></div>
+        <p class="hello" id="hello"></p>
+        <div class="logoWrap"><img class="logo" id="logo" src="logo.png" alt="SarexSafio 1"></div>
+        <div class="chips"><span id="chipVer">Minecraft 1.21.1</span><span>Fabric</span><span id="chipMods">0 mods</span></div>
+        <div class="srv" id="srv" hidden><i></i><span class="pn" id="srvName"></span><b id="srvCount">Conectando…</b><em id="srvPing"></em></div>
+        <button id="play" class="play" disabled><span id="playLbl">JUGAR</span></button>
+        <div class="prog" id="prog" hidden><div class="fill" id="fill"></div></div>
+        <p class="pct" id="pct" hidden></p>
+        <div class="steps" id="steps" hidden><span>Java</span><span>Fabric</span><span>Mods</span><span>Skins</span><span>Minecraft</span></div>
+        <p class="msg" id="msg"></p>
+        <p class="stats" id="stats"></p>
+      </div>
+    </section>
+
+    <section class="view" id="v-add">
+      <div class="addwrap">
+        <h2 class="h2">Añadir instancia</h2>
+        <p class="small">Elige una instancia: el launcher descarga todo lo necesario y todos sus mods.</p>
+        <div class="igrid" id="instGrid"></div>
+      </div>
+    </section>
+
+    <section class="view" id="v-news">
+      <div class="card"><h3>Novedades</h3><div id="news"></div></div>
+    </section>
+
+    <section class="view" id="v-skins">
+      <div class="skins">
+        <div class="card prev">
+          <div class="stagebox"><canvas id="skcan"></canvas><p id="skempty" hidden>Sin skin personalizada.<br>Se usa la predeterminada de Minecraft.</p></div>
+          <p class="who pn" id="skname">Tu skin</p>
+          <p class="small" id="sksrc"></p>
+          <p class="small modnote" id="skmod"></p>
+          <div class="btnrow"><button class="btn ghost" id="fb">Ver espalda</button><button class="btn ghost" id="skdel" hidden>Quitar mi skin</button></div>
+          <button class="btn" id="skimp">Importar mi skin (.png)</button>
+          <div class="look"><input id="lkname" placeholder="Ver skin de un jugador premium" maxlength="16" spellcheck="false"><button class="btn ghost" id="lkbtn">Ver</button></div>
+          <p class="err" id="skerr"></p>
+        </div>
+        <div class="card">
+          <h3>Skins de la comunidad</h3>
+          <div class="grid" id="grid"></div>
+          <p class="small" id="gridempty" hidden>Aún no hay skins de la comunidad.</p>
+          <p class="note">Las skins se ven dentro del juego con el mod <b>CustomSkinLoader</b>, que el launcher instala solo. Así premium y sin cuenta se ven entre sí.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="v-shots">
+      <div class="card"><h3>Capturas de pantalla</h3>
+        <p class="small" id="shotsmsg"></p>
+        <div class="shots" id="shots"></div>
+        <div class="btnrow"><button class="btn ghost" id="shotsFolder">Abrir carpeta de capturas</button></div>
+      </div>
+    </section>
+
+    <section class="view" id="v-mods">
+      <div class="card">
+        <h3>Mods del pack</h3>
+        <p class="small" id="modsum"></p>
+        <div id="modlist" class="modlist"></div>
+        <div class="btnrow"><button class="btn" id="modfix">Verificar y reparar</button><button class="btn ghost" id="chkBtn">Buscar actualizaciones</button><button class="btn ghost" id="modfolder">🔒 Carpeta de mods (administrador)</button></div>
+        <p class="note">Cada mod se comprueba con su huella digital (sha1). Si borras o cambias un mod, el launcher lo restaura solo, y la carpeta solo se abre con el código de administrador. Los mods que no son del pack se eliminan para que todos jueguen igual.</p>
+      </div>
+      <div class="card" style="margin-top:16px"><h3>Cargar modpack (.mrpack)</h3>
+        <p class="small">Arrastra aquí tu archivo .mrpack o pulsa el botón. Los mods se instalan en SarexSafio y, si ya configuraste el token y la llave, puedes publicarlos para todos con un clic.</p>
+        <div id="mrDrop" class="btnrow" style="border:2px dashed var(--mut);border-radius:14px;padding:22px;justify-content:center;text-align:center">Suelta el archivo .mrpack aquí</div>
+        <div class="btnrow"><button class="btn primary" id="mrBtn">🔒 Elegir archivo .mrpack</button></div>
+        <p class="err" id="mrMsg"></p>
+      </div>
+      <div class="card" style="margin-top:16px"><h3>Administrador: publicar actualización</h3>
+        <p class="small" id="adminInfo">Elige la carpeta con tus mods y se publica para todos los jugadores, cifrada y firmada.</p>
+        <input id="pubNote" placeholder="Nota de la actualización (opcional)" maxlength="120" spellcheck="false">
+        <div class="btnrow"><button class="btn primary" id="pubBtn">🔒 Publicar actualización de mods</button></div>
+        <div class="btnrow"><button class="btn ghost" id="tokBtn">🔒 Token de GitHub</button><button class="btn ghost" id="keyBtn">🔒 Llave de firma</button></div>
+        <p class="err" id="pubMsg"></p>
+      </div>
+    </section>
+
+    <section class="view" id="v-security">
+      <div class="sec">
+        <div class="card"><h3>Estado de seguridad</h3><ul class="checks" id="checks"></ul></div>
+        <div class="card"><h3>Tu privacidad</h3>
+          <label class="sw"><input type="checkbox" id="optPrivate"><i></i><span>Modo privado<small>Difumina tu nombre y el servidor en pantalla. Ideal para grabar o hacer stream.</small></span></label>
+          <div class="stack">
+            <button class="btn ghost" id="copylog">Copiar registro seguro</button>
+            <button class="btn ghost" id="cleanlogs">Borrar registros y reportes de fallos</button>
+            <button class="btn danger" id="wipe">Borrar mis datos de este equipo</button>
+          </div>
+          <p class="err" id="secmsg"></p>
+          <p class="note">El registro seguro oculta tu usuario de Windows, IP, correo, identificadores y tokens. Úsalo siempre que pidas ayuda.</p>
+        </div>
+        <div class="card"><h3>Consejos para estar tranquilo</h3>
+          <ul class="tips">
+            <li>Activa la verificación en dos pasos de tu cuenta Microsoft.</li>
+            <li>Instala el launcher solo desde el enlace oficial de Sarex Studio.</li>
+            <li>No uses tu nombre real ni datos personales como nombre de jugador.</li>
+            <li>No compartas capturas con F3 abierto ni registros sin ocultar.</li>
+            <li>Nadie del equipo te pedirá jamás tu contraseña ni tu sesión.</li>
+          </ul>
+          <button class="link" id="ms2fa">Abrir seguridad de mi cuenta Microsoft</button>
+        </div>
+        <div class="card"><h3>Con quién se conecta este launcher</h3>
+          <p class="small">Solo con estos sitios, y no envía datos tuyos a nadie:</p>
+          <ul class="hosts" id="hosts"><li>Microsoft (inicio de sesión oficial)</li><li>Mojang (skins de jugadores premium)</li><li>Fabric (cargador de mods)</li><li>Adoptium (Java)</li><li>Modrinth (mod de skins y Fabric API, con huella verificada)</li><li>Tu servidor SarexSafio (para ver cuántos hay en línea)</li><li>Tu app de Discord, en tu propio PC, si activas el estado</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="v-settings">
+      <div class="settings">
+        <div class="card"><h3>Cuenta</h3>
+          <p class="who pn" id="setwho"></p><p class="small" id="setkind"></p>
+          <button class="btn ghost" id="logout">Cambiar de cuenta</button>
+          <p class="note">Tu sesión de Microsoft se guarda cifrada en tu equipo. Nunca vemos tu contraseña: el inicio de sesión ocurre en la ventana oficial de Microsoft.</p>
+        </div>
+        <div class="card"><h3>Rendimiento</h3>
+          <label class="ram">Memoria para el juego <b id="ramv">4 GB</b><input type="range" id="ram" min="2" max="16" step="1" value="4"></label>
+          <button class="btn ghost" id="folder">🔒 Carpeta del juego (administrador)</button>
+        </div>
+        <div class="card"><h3>Apariencia</h3>
+          <div class="themes"><button class="th active" data-theme="dark"><i></i>Oscuro</button><button class="th" data-theme="black"><i></i>Negro puro</button></div>
+          <label class="sw" style="margin-top:10px"><input type="checkbox" id="optSound"><i></i><span>Sonidos suaves<small>Pequeños sonidos al pulsar y al terminar.</small></span></label>
+          <p class="small" id="ramhint" style="margin:10px 0 0"></p>
+        </div>
+        <div class="card about"><img src="studio-logo.png" alt="Sarex Studio"><p class="small">Launcher de Sarex Studio · Minecraft 1.21.1 con Fabric</p><button class="link" id="eulaView" style="padding:0">Ver el EULA de Minecraft</button></div>
+        <div class="card"><h3>Opciones</h3>
+          <label class="sw" id="joinRow" hidden><input type="checkbox" id="optJoin"><i></i><span>Entrar directo al servidor<small id="joinSrv"></small></span></label>
+          <label class="sw" id="discRow"><input type="checkbox" id="optDisc"><i></i><span>Mostrar en Discord que juego SarexSafio<small id="discSmall">Solo comparte el nombre del juego y la hora de inicio. Nunca tu nombre de cuenta, IP ni servidor.</small></span></label>
+          <button class="btn ghost" id="discTest" style="margin:6px 0 4px">Probar mi estado de Discord</button><p class="err" id="discMsg"></p>
+          <label class="sw"><input type="checkbox" id="optFx"><i></i><span>Partículas y efectos de fondo<small>Apágalo si tu PC va lento.</small></span></label>
+          <label class="sw"><input type="checkbox" id="optClose"><i></i><span>Cerrar el launcher al abrir Minecraft<small>Se cierra solo cuando el juego ya abrió. Si el juego falla, el launcher vuelve a aparecer.</small></span></label>
+        </div>
+      </div>
+    </section>
+
+    <footer class="ad" id="ad" hidden>
+      <span class="adtag" id="adtag">Patrocinado</span>
+      <a id="adtext" href="#"></a>
+      <button id="adclose" aria-label="Ocultar anuncio">&#215;</button>
+    </footer>
+  </div>
+</div>
+
+<div class="modal" id="eulaModal" hidden>
+  <div class="dialog wide">
+    <img src="icon.png" alt="" class="dl-ic">
+    <h2>Antes de jugar</h2>
+    <p class="small">Para usar este launcher debes aceptar las condiciones de Minecraft.</p>
+    <div class="eula-box">
+      <p><b>Minecraft es de Mojang Studios / Microsoft.</b> Este launcher es hecho por Sarex Studio y <b>no es un producto oficial de Minecraft, ni está aprobado ni asociado a Mojang o Microsoft.</b></p>
+      <p>Para jugar debes cumplir el <b>Acuerdo de Licencia de Usuario Final (EULA)</b> de Minecraft y sus <b>Directrices de uso</b>.</p>
+      <p>Sarex Studio no recopila tus datos. Tu sesión de Microsoft, si la usas, se guarda cifrada solo en tu equipo.</p>
+    </div>
+    <div class="btnrow"><button class="btn ghost" id="eulaRead">Leer el EULA</button><button class="btn ghost" id="eulaGuide">Directrices de uso</button></div>
+    <label class="ck"><input type="checkbox" id="eulaCk"><span>He leído y acepto el EULA de Minecraft y las condiciones de este launcher.</span></label>
+    <button class="btn primary" id="eulaOk" disabled>Aceptar y continuar</button>
+    <button class="link" id="eulaNo">No acepto (cerrar)</button>
+  </div>
+</div>
+
+<div class="modal" id="tokModal" hidden>
+  <div class="dialog codebox">
+    <h2>Token de GitHub</h2>
+    <p class="small">Crea un token con permiso de escritura de <b>Contents</b> solo para tu repo y pégalo aquí. Se guarda cifrado en este PC.</p>
+    <input type="password" id="tokIn" placeholder="github_pat_..." autocomplete="off" spellcheck="false" style="text-align:center">
+    <p class="err" id="tokErr"></p>
+    <button class="btn primary" id="tokOk">Guardar</button>
+    <button class="link" id="tokNo">Cancelar</button>
+  </div>
+</div>
+
+<div class="modal" id="adminModal" hidden>
+  <div class="dialog codebox">
+    <div class="plus"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
+    <h2>Administrador</h2>
+    <p class="small">Esta carpeta está protegida. Escribe el código de administrador.</p>
+    <input type="password" id="adminPin" placeholder="Código de administrador" autocomplete="off" spellcheck="false" style="text-align:center">
+    <p class="err" id="adminErr"></p>
+    <button class="btn primary" id="adminOk">Desbloquear</button>
+    <button class="link" id="adminNo">Cancelar</button>
+  </div>
+</div>
+
+<div class="modal" id="codeModal" hidden>
+  <div class="dialog codebox">
+    <div class="plus" id="plus"><svg viewBox="0 0 24 24"><path class="p1" d="M12 5v14M5 12h14"/><path class="ck" d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <h2>Código de acceso</h2>
+    <p class="small">Escribe el código de 6 números que te dio Sarex Studio. Se te pedirá cada vez que abras el launcher.</p>
+    <div class="otp" id="otp"><input inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Dígito 1"><input inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Dígito 2"><input inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Dígito 3"><input inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Dígito 4"><input inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Dígito 5"><input inputmode="numeric" maxlength="1" autocomplete="off" aria-label="Dígito 6"></div>
+    <p class="err" id="codeErr"></p>
+    <button class="btn primary" id="codeOk" disabled>Entrar</button>
+    <button class="link" id="codeNo">Cerrar</button>
+  </div>
+</div>
+
+<div class="modal" id="modal" hidden>
+  <div class="dialog">
+    <img src="icon.png" alt="" class="dl-ic">
+    <h2>Bienvenido</h2>
+    <p class="small">Elige cómo quieres entrar.</p>
+    <button class="btn primary" id="ms">Entrar con Microsoft (premium)</button>
+    <div class="or"><span>o</span></div>
+    <div class="off"><input id="offname" placeholder="Tu nombre de jugador" maxlength="16" spellcheck="false"><button class="btn ghost" id="offbtn">Entrar sin cuenta</button></div>
+    <p class="err" id="lerr"></p>
+    <button class="link" id="mclose" hidden>Cancelar</button>
+  </div>
+</div>
+<script src="fx.js"></script>
+<script src="renderer.js"></script>
+</body>
+</html>

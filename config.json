@@ -1,0 +1,42 @@
+{
+  "name": "Sarex Studio Launcher",
+  "minecraft": "1.21.1",
+  "manifestUrl": "https://raw.githubusercontent.com/sarexmc/LauncherDEFINITIVO/main/manifest.json",
+  "publicKey": "MCowBQYDK2VwAyEAeCEfgZ1ItbKUHOl0pryCuThS00raunXyzockmBWrV70=",
+  "allowedHosts": [
+    "github.com",
+    "raw.githubusercontent.com",
+    "objects.githubusercontent.com",
+    "release-assets.githubusercontent.com",
+    "cdn.modrinth.com"
+  ],
+  "server": {
+    "name": "SarexSafio",
+    "host": "149.202.84.78",
+    "port": 25641
+  },
+  "discord": {
+    "clientId": "",
+    "invite": ""
+  },
+  "edition": "1",
+  "codes": {
+    "required": true,
+    "url": "https://aged-disk-31cd.peneconrizos.workers.dev"
+  },
+  "instances": [
+    {
+      "id": "sarexsafio1",
+      "name": "SarexSafio 1",
+      "desc": "Minecraft 1.21.1 con Fabric. Incluye todos los mods del servidor."
+    }
+  ],
+  "admin": {
+    "salt": "04f26bdccff48d6d8931cdd710bbba85",
+    "hash": "853bb934122f745023d738e6d4dc94a44b1cc838a03955c3f21fafd935118565"
+  },
+  "updates": {
+    "repo": "sarexmc/LauncherDEFINITIVO",
+    "branch": "main"
+  }
+}
